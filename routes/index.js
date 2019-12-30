@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var nconf = require('nconf');
+const os = require("os");
+
 
 // For local-dev convenience, we'll use a hard-coded config file,
 // but in production, we'd like to take advantage of Habitat's support
@@ -12,7 +14,8 @@ nconf.file({ file: process.argv[2] || './dev-config.json' });
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: nconf.get('title'),
-    message: nconf.get('message')
+    message: nconf.get('message'),
+    machine : os.hostname()
   });
 });
 
